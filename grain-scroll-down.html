@@ -1,0 +1,86 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../grain-update-inline-style-behavior/grain-update-inline-style-behavior.html">
+<link rel="import" href="../grain-responsive-behavior/grain-responsive-behavior.html">
+<link rel="import" href="../grain-scroll-behavior/grain-scroll-behavior.html">
+
+<dom-module id="grain-scroll-down">
+	<template>
+		<style>
+			:host {
+				position: absolute;
+				bottom: 15%;
+				z-index: 10;
+				transition: transform 0.4s ease-in-out, opacity 0.5s ease-in-out;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				left: 0;
+			}
+
+			:host([shown=false]) {
+				opacity: 0;
+				transform: translate(0, 150%);
+				pointer-events: none;
+			}
+
+			:host([shown=true]) {
+				opacity: 0.8;
+				transform: translate(0, 0);
+			}
+		</style>
+
+		<slot></slot>
+	</template>
+
+	<script>
+
+		class GrainScrollDown extends GrainScrollBehavior(GrainUpdateInlineStyleBehavior(GrainResponsiveBehavior(Polymer.Element))) {
+
+			static get is() { return 'grain-scroll-down' }
+
+			static get properties() {
+				return {
+					goTo: {
+						type: String,
+						reflectToAttribute: true,
+						value: '100vh'
+					},
+
+					shown: {
+						type: String,
+						reflectToAttribute: true,
+						value: 'true'
+					}
+				};
+			}
+
+			ready() {
+				super.ready();
+				this.addEventListener('click', this._onTriggerClick.bind(this));
+				this.scrollLoop();
+			}
+
+			onScroll(scrollTop) {
+				if (scrollTop > 10) {
+					this.shown = 'false';
+				} else {
+					this.shown = 'true';
+				}
+			}
+
+			_onTriggerClick() {
+				scroll({
+					top: this.vhToPx(this.goTo),
+					left: 0,
+					behavior: 'smooth'
+				});
+			}
+
+		}
+
+		// Register custom element definition using standard platform API
+		customElements.define(GrainScrollDown.is, GrainScrollDown);
+	</script>
+</dom-module>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+	<title>grain-scroll-down demo</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../grain-scroll-down.html">
+
+</head>
+<body>
+<div class="vertical-section-container centered">
+	<h3>Basic grain-scroll-down demo</h3>
+	<br ><br ><br ><br ><br ><br >
+	Some Content so we can scroll
+	<br ><br ><br ><br ><br ><br >
+	<demo-snippet>
+		<template>
+<script>
+	(function() {
+		'use strict';
+		// load polyfill for smoothscroll if needed
+		let scrollBehaviorSupported = ('scrollBehavior' in document.documentElement.style);
+		if (!scrollBehaviorSupported) {
+			let script = document.createElement('script');
+			script.async = true;
+			script.src = '../bower_components/smoothscroll/dist/smoothscroll.js';
+			script.onload = onload;
+			document.head.appendChild(script);
+		}
+	})();
+</script>
+<grain-scroll-down>
+	click me to scroll down 100%
+</grain-scroll-down>
+		</template>
+	</demo-snippet>
+	<br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br >
+	<br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br ><br >
+	Some Content so we can scroll
+</div>
+</body>
+</html>
